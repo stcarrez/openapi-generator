@@ -135,6 +135,62 @@ package Samples.Petstore.Models is
                           Value : in out Tag_Type_Vectors.Vector);
 
 
+   type PropertyNameMapping_Type is
+     record
+       P_HTTPDebugOperation : Swagger.Nullable_UString;
+       P_UnderscoreType : Swagger.Nullable_UString;
+       P_Type : Swagger.Nullable_UString;
+       P_TypeWithUnderscore : Swagger.Nullable_UString;
+     end record;
+
+
+   package PropertyNameMapping_Type_Vectors is
+      new Ada.Containers.Vectors (Index_Type   => Positive,
+                                  Element_Type => Samples.Petstore.Models.PropertyNameMapping_Type);
+
+   procedure Serialize (Into  : in out Swagger.Streams.Output_Stream'Class;
+                        Name  : in String;
+                        Value : in Samples.Petstore.Models.PropertyNameMapping_Type);
+   procedure Serialize (Into  : in out Swagger.Streams.Output_Stream'Class;
+                        Name  : in String;
+                        Value : in PropertyNameMapping_Type_Vectors.Vector);
+   procedure Deserialize (From  : in Swagger.Value_Type;
+                          Name  : in String;
+                          Value : out Samples.Petstore.Models.PropertyNameMapping_Type);
+   procedure Deserialize (From  : in Swagger.Value_Type;
+                          Name  : in String;
+                          Value : in out PropertyNameMapping_Type_Vectors.Vector);
+
+
+   --  ------------------------------
+   --  Pet Tag
+   --  A tag for a pet
+   --  ------------------------------
+   type Tag_Type is
+     record
+       Id : Swagger.Nullable_Long;
+       Name : Swagger.Nullable_UString;
+     end record;
+
+
+   package Tag_Type_Vectors is
+      new Ada.Containers.Vectors (Index_Type   => Positive,
+                                  Element_Type => Samples.Petstore.Models.Tag_Type);
+
+   procedure Serialize (Into  : in out Swagger.Streams.Output_Stream'Class;
+                        Name  : in String;
+                        Value : in Samples.Petstore.Models.Tag_Type);
+   procedure Serialize (Into  : in out Swagger.Streams.Output_Stream'Class;
+                        Name  : in String;
+                        Value : in Tag_Type_Vectors.Vector);
+   procedure Deserialize (From  : in Swagger.Value_Type;
+                          Name  : in String;
+                          Value : out Samples.Petstore.Models.Tag_Type);
+   procedure Deserialize (From  : in Swagger.Value_Type;
+                          Name  : in String;
+                          Value : in out Tag_Type_Vectors.Vector);
+
+
    --  ------------------------------
    --  a User
    --  A User who is purchasing from the pet store

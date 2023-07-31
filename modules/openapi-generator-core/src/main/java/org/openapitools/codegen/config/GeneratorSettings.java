@@ -53,6 +53,8 @@ public final class GeneratorSettings implements Serializable {
     private final Map<String, String> schemaMappings;
     private final Map<String, String> inlineSchemaNameMappings;
     private final Map<String, String> inlineSchemaOptions;
+    private final Map<String, String> nameMappings;
+    private final Map<String, String> parameterNameMappings;
     private final Map<String, String> openapiNormalizer;
     private final Set<String> languageSpecificPrimitives;
     private final Map<String, String> reservedWordsMappings;
@@ -266,6 +268,24 @@ public final class GeneratorSettings implements Serializable {
     }
 
     /**
+     * Gets property name mappings between a property name and the new name.
+     *
+     * @return the property name mappings
+     */
+    public Map<String, String> getNameMappings() {
+        return nameMappings;
+    }
+
+    /**
+     * Gets parameter name mappings between a parameter name and the new name.
+     *
+     * @return the parameter name mappings
+     */
+    public Map<String, String> getParameterNameMappings() {
+        return parameterNameMappings;
+    }
+
+    /**
      * Gets OpenAPI normalizer rules
      *
      * @return a map of rules
@@ -392,6 +412,8 @@ public final class GeneratorSettings implements Serializable {
         schemaMappings = Collections.unmodifiableMap(builder.schemaMappings);
         inlineSchemaNameMappings = Collections.unmodifiableMap(builder.inlineSchemaNameMappings);
         inlineSchemaOptions = Collections.unmodifiableMap(builder.inlineSchemaOptions);
+        nameMappings = Collections.unmodifiableMap(builder.nameMappings);
+        parameterNameMappings = Collections.unmodifiableMap(builder.parameterNameMappings);
         openapiNormalizer = Collections.unmodifiableMap(builder.openapiNormalizer);
         languageSpecificPrimitives = Collections.unmodifiableSet(builder.languageSpecificPrimitives);
         reservedWordsMappings = Collections.unmodifiableMap(builder.reservedWordsMappings);
@@ -466,6 +488,8 @@ public final class GeneratorSettings implements Serializable {
         schemaMappings = Collections.unmodifiableMap(new HashMap<>(0));
         inlineSchemaNameMappings = Collections.unmodifiableMap(new HashMap<>(0));
         inlineSchemaOptions = Collections.unmodifiableMap(new HashMap<>(0));
+        nameMappings = Collections.unmodifiableMap(new HashMap<>(0));
+        parameterNameMappings = Collections.unmodifiableMap(new HashMap<>(0));
         openapiNormalizer = Collections.unmodifiableMap(new HashMap<>(0));
         languageSpecificPrimitives = Collections.unmodifiableSet(new HashSet<>(0));
         reservedWordsMappings = Collections.unmodifiableMap(new HashMap<>(0));
@@ -527,6 +551,12 @@ public final class GeneratorSettings implements Serializable {
         if (copy.getInlineSchemaOptions() != null) {
             builder.inlineSchemaOptions.putAll(copy.getInlineSchemaOptions());
         }
+        if (copy.getNameMappings() != null) {
+            builder.nameMappings.putAll(copy.getNameMappings());
+        }
+        if (copy.getParameterNameMappings() != null) {
+            builder.parameterNameMappings.putAll(copy.getParameterNameMappings());
+        }
         if (copy.getOpenAPINormalizer() != null) {
             builder.openapiNormalizer.putAll(copy.getOpenAPINormalizer());
         }
@@ -572,6 +602,8 @@ public final class GeneratorSettings implements Serializable {
         private Map<String, String> schemaMappings;
         private Map<String, String> inlineSchemaNameMappings;
         private Map<String, String> inlineSchemaOptions;
+        private Map<String, String> nameMappings;
+        private Map<String, String> parameterNameMappings;
         private Map<String, String> openapiNormalizer;
         private Set<String> languageSpecificPrimitives;
         private Map<String, String> reservedWordsMappings;
@@ -593,6 +625,8 @@ public final class GeneratorSettings implements Serializable {
             schemaMappings = new HashMap<>();
             inlineSchemaNameMappings = new HashMap<>();
             inlineSchemaOptions = new HashMap<>();
+            nameMappings = new HashMap<>();
+            parameterNameMappings = new HashMap<>();
             openapiNormalizer = new HashMap<>();
             languageSpecificPrimitives = new HashSet<>();
             reservedWordsMappings = new HashMap<>();
@@ -915,6 +949,58 @@ public final class GeneratorSettings implements Serializable {
         }
 
         /**
+         * Sets the {@code nameMappings} and returns a reference to this Builder so that the methods can be chained together.
+         *
+         * @param nameMappings the {@code nameMappings} to set
+         * @return a reference to this Builder
+         */
+        public Builder withNameMappings(Map<String, String> nameMappings) {
+            this.nameMappings = nameMappings;
+            return this;
+        }
+
+        /**
+         * Sets a single {@code nameMappings} and returns a reference to this Builder so that the methods can be chained together.
+         *
+         * @param key   A key for the name mapping
+         * @param value The value of name mapping
+         * @return a reference to this Builder
+         */
+        public Builder withNameMapping(String key, String value) {
+            if (this.nameMappings == null) {
+                this.nameMappings = new HashMap<>();
+            }
+            this.nameMappings.put(key, value);
+            return this;
+        }
+
+        /**
+         * Sets the {@code parameterNameMappings} and returns a reference to this Builder so that the methods can be chained together.
+         *
+         * @param parameterNameMappings the {@code parameterNameMappings} to set
+         * @return a reference to this Builder
+         */
+        public Builder withParameterNameMappings(Map<String, String> parameterNameMappings) {
+            this.parameterNameMappings = parameterNameMappings;
+            return this;
+        }
+
+        /**
+         * Sets a single {@code parameterNameMappings} and returns a reference to this Builder so that the methods can be chained together.
+         *
+         * @param key   A key for the name mapping
+         * @param value The value of name mapping
+         * @return a reference to this Builder
+         */
+        public Builder withParameterNameMapping(String key, String value) {
+            if (this.parameterNameMappings == null) {
+                this.parameterNameMappings = new HashMap<>();
+            }
+            this.parameterNameMappings.put(key, value);
+            return this;
+        }
+
+        /**
          * Sets the {@code openapiNormalizer} and returns a reference to this Builder so that the methods can be chained together.
          *
          * @param openapiNormalizer the {@code openapiNormalizer} to set
@@ -1128,6 +1214,8 @@ public final class GeneratorSettings implements Serializable {
                 Objects.equals(getSchemaMappings(), that.getSchemaMappings()) &&
                 Objects.equals(getInlineSchemaNameMappings(), that.getInlineSchemaNameMappings()) &&
                 Objects.equals(getInlineSchemaOptions(), that.getInlineSchemaOptions()) &&
+                Objects.equals(getNameMappings(), that.getNameMappings()) &&
+                Objects.equals(getParameterNameMappings(), that.getParameterNameMappings()) &&
                 Objects.equals(getOpenAPINormalizer(), that.getOpenAPINormalizer()) &&
                 Objects.equals(getLanguageSpecificPrimitives(), that.getLanguageSpecificPrimitives()) &&
                 Objects.equals(getReservedWordsMappings(), that.getReservedWordsMappings()) &&
@@ -1160,6 +1248,8 @@ public final class GeneratorSettings implements Serializable {
                 getSchemaMappings(),
                 getInlineSchemaNameMappings(),
                 getInlineSchemaOptions(),
+                getNameMappings(),
+                getParameterNameMappings(),
                 getOpenAPINormalizer(),
                 getLanguageSpecificPrimitives(),
                 getReservedWordsMappings(),
