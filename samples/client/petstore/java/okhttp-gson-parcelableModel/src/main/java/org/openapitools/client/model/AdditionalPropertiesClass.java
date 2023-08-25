@@ -14,7 +14,6 @@
 package org.openapitools.client.model;
 
 import java.util.Objects;
-import java.util.Arrays;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -22,6 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -475,7 +475,7 @@ public class AdditionalPropertiesClass implements Parcelable {
 
   AdditionalPropertiesClass(Parcel in) {
     mapString = (Map<String, String>)in.readValue(null);
-    mapNumber = (Map<String, BigDecimal>)in.readValue(null);
+    mapNumber = (Map<String, BigDecimal>)in.readValue(BigDecimal.class.getClassLoader());
     mapInteger = (Map<String, Integer>)in.readValue(null);
     mapBoolean = (Map<String, Boolean>)in.readValue(null);
     mapArrayInteger = (Map<String, List<Integer>>)in.readValue(List.class.getClassLoader());
