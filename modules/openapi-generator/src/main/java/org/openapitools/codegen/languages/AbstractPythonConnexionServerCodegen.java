@@ -16,17 +16,9 @@
 
 package org.openapitools.codegen.languages;
 
-import static org.openapitools.codegen.utils.StringUtils.camelize;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.CliOption;
@@ -63,11 +55,12 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
-import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+
+import static org.openapitools.codegen.utils.StringUtils.*;
 
 public abstract class AbstractPythonConnexionServerCodegen extends AbstractPythonCodegen implements CodegenConfig {
     private static class PythonBooleanSerializer extends JsonSerializer<Boolean> {
@@ -178,7 +171,7 @@ public abstract class AbstractPythonConnexionServerCodegen extends AbstractPytho
         cliOptions.add(new CliOption(USE_PYTHON_SRC_ROOT_IN_IMPORTS, "include pythonSrcRoot in import namespaces.").
                 defaultValue("false"));
         cliOptions.add(new CliOption(MOVE_TESTS_UNDER_PYTHON_SRC_ROOT, "generates test under the pythonSrcRoot folder.")
-            .defaultValue("false"));
+                .defaultValue("false"));
     }
 
     protected void addSupportingFiles() {
@@ -333,7 +326,6 @@ public abstract class AbstractPythonConnexionServerCodegen extends AbstractPytho
     }
 
 
-
     @Override
     public String toApiTestFilename(String name) {
         return "test_" + toApiFilename(name);
@@ -358,8 +350,7 @@ public abstract class AbstractPythonConnexionServerCodegen extends AbstractPytho
     @Override
     public String getTypeDeclaration(Schema p) {
         if (ModelUtils.isArraySchema(p)) {
-            ArraySchema ap = (ArraySchema) p;
-            Schema inner = ap.getItems();
+            Schema inner = ModelUtils.getSchemaItems(p);
             return getSchemaType(p) + "[" + getTypeDeclaration(inner) + "]";
         } else if (ModelUtils.isMapSchema(p)) {
             Schema inner = ModelUtils.getAdditionalProperties(p);
@@ -416,8 +407,14 @@ public abstract class AbstractPythonConnexionServerCodegen extends AbstractPytho
                         }
                         if (operation.getParameters() != null) {
                             for (Parameter parameter : operation.getParameters()) {
+                                if (StringUtils.isNotEmpty(parameter.get$ref())) {
+                                    parameter = ModelUtils.getReferencedParameter(openAPI, parameter);
+                                }
                                 String swaggerParameterName = parameter.getName();
                                 String pythonParameterName = this.toParamName(swaggerParameterName);
+                                if (swaggerParameterName == null) {
+                                    throw new RuntimeException("Please report the issue as the parameter name cannot be null: " + parameter);
+                                }
                                 if (!swaggerParameterName.equals(pythonParameterName)) {
                                     LOGGER.warn(
                                             "Parameter name '{}' is not consistent with Python variable names. It will be replaced by '{}'",
@@ -637,12 +634,6 @@ public abstract class AbstractPythonConnexionServerCodegen extends AbstractPytho
     }
 
     @Override
-    public ModelsMap postProcessModels(ModelsMap objs) {
-        // process enum in models
-        return postProcessModelsEnum(objs);
-    }
-
-    @Override
     public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
         Map<String, ModelsMap> result = super.postProcessAllModels(objs);
         for (ModelsMap entry : result.values()) {
@@ -745,6 +736,7 @@ public abstract class AbstractPythonConnexionServerCodegen extends AbstractPytho
      * does not support this in as natural a way so it needs to convert it. See
      * https://docs.python.org/2/howto/regex.html#compilation-flags for details.
      */
+    @Override
     public void postProcessPattern(String pattern, Map<String, Object> vendorExtensions) {
         if (pattern != null) {
             int i = pattern.lastIndexOf('/');

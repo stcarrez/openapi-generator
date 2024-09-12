@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 })
 /**
   * A pet for sale in the pet store
- **/
+  */
 
 public class Pet  {
   
@@ -93,15 +93,15 @@ public class Pet  {
 
   public static final String JSON_PROPERTY_STATUS = "status";
  /**
-   * pet status in the store
-  **/
+  * pet status in the store
+  */
   
   private StatusEnum status;
 
- /**
+  /**
    * Get id
    * @return id
-  **/
+   **/
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getId() {
@@ -109,8 +109,8 @@ public class Pet  {
   }
 
   /**
-    * Set id
-  **/
+   * Set id
+   */
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(Long id) {
@@ -122,10 +122,10 @@ public class Pet  {
     return this;
   }
 
- /**
+  /**
    * Get category
    * @return category
-  **/
+   **/
   @JsonProperty(JSON_PROPERTY_CATEGORY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Category getCategory() {
@@ -133,8 +133,8 @@ public class Pet  {
   }
 
   /**
-    * Set category
-  **/
+   * Set category
+   */
   @JsonProperty(JSON_PROPERTY_CATEGORY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCategory(Category category) {
@@ -146,10 +146,10 @@ public class Pet  {
     return this;
   }
 
- /**
+  /**
    * Get name
    * @return name
-  **/
+   **/
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getName() {
@@ -157,8 +157,8 @@ public class Pet  {
   }
 
   /**
-    * Set name
-  **/
+   * Set name
+   */
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(String name) {
@@ -170,10 +170,10 @@ public class Pet  {
     return this;
   }
 
- /**
+  /**
    * Get photoUrls
    * @return photoUrls
-  **/
+   **/
   @JsonProperty(JSON_PROPERTY_PHOTO_URLS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<String> getPhotoUrls() {
@@ -181,8 +181,8 @@ public class Pet  {
   }
 
   /**
-    * Set photoUrls
-  **/
+   * Set photoUrls
+   */
   @JsonProperty(JSON_PROPERTY_PHOTO_URLS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPhotoUrls(List<String> photoUrls) {
@@ -195,14 +195,17 @@ public class Pet  {
   }
 
   public Pet addPhotoUrlsItem(String photoUrlsItem) {
+    if (this.photoUrls == null) {
+      this.photoUrls = new ArrayList<>();
+    }
     this.photoUrls.add(photoUrlsItem);
     return this;
   }
 
- /**
+  /**
    * Get tags
    * @return tags
-  **/
+   **/
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<Tag> getTags() {
@@ -210,8 +213,8 @@ public class Pet  {
   }
 
   /**
-    * Set tags
-  **/
+   * Set tags
+   */
   @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTags(List<Tag> tags) {
@@ -224,15 +227,18 @@ public class Pet  {
   }
 
   public Pet addTagsItem(Tag tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<>();
+    }
     this.tags.add(tagsItem);
     return this;
   }
 
- /**
+  /**
    * pet status in the store
    * @return status
    * @deprecated
-  **/
+   **/
   @Deprecated
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
@@ -241,8 +247,8 @@ public class Pet  {
   }
 
   /**
-    * Set status
-  **/
+   * Set status
+   */
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(StatusEnum status) {
@@ -256,8 +262,8 @@ public class Pet  {
 
 
   /**
-    * Create a string representation of this pojo.
-  **/
+   * Create a string representation of this pojo.
+   */
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -284,3 +290,4 @@ public class Pet  {
     return o.toString().replace("\n", "\n    ");
   }
 }
+

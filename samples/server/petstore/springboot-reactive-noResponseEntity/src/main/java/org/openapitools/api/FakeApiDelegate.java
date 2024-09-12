@@ -2,6 +2,7 @@ package org.openapitools.api;
 
 import springfox.documentation.annotations.ApiIgnore;
 import java.math.BigDecimal;
+import org.openapitools.model.ChildWithNullable;
 import org.openapitools.model.Client;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.openapitools.model.FileSchemaTestClass;
@@ -33,7 +34,7 @@ import javax.annotation.Generated;
  * A delegate to be called by the {@link FakeApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", comments = "Generator version: 7.9.0-SNAPSHOT")
 public interface FakeApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -336,6 +337,22 @@ public interface FakeApiDelegate {
         Mono<Void> result = Mono.empty();
         exchange.getResponse().setStatusCode(HttpStatus.NOT_IMPLEMENTED);
         return result.then(Mono.empty());
+
+    }
+
+    /**
+     * POST /fake/nullable : test nullable parent property
+     * 
+     *
+     * @param childWithNullable request body (required)
+     * @return successful operation (status code 200)
+     * @see FakeApi#testNullable
+     */
+    default Mono<Void> testNullable(Mono<ChildWithNullable> childWithNullable,
+        ServerWebExchange exchange) {
+        Mono<Void> result = Mono.empty();
+        exchange.getResponse().setStatusCode(HttpStatus.NOT_IMPLEMENTED);
+        return result.then(childWithNullable).then(Mono.empty());
 
     }
 
