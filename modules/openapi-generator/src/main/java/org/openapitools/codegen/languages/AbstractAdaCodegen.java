@@ -95,7 +95,7 @@ abstract public class AbstractAdaCodegen extends DefaultCodegen implements Codeg
     protected final Set<String> adaImportSet = new TreeSet<>();
     protected int scopeIndex = 0;
     protected String httpClientPackageName = "Curl";
-    protected String openApiPackageName = "Swagger";
+    protected String openApiPackageName = "OpenAPI";
 
     private static final String bytesType = "swagger::ByteArray";
 
