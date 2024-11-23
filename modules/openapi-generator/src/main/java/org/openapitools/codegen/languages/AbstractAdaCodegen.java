@@ -80,6 +80,7 @@ abstract public class AbstractAdaCodegen extends DefaultCodegen implements Codeg
     private static final String X_ADA_VECTOR_TYPE_NAME = "x-ada-vector-type-name";
     private static final String X_ADA_NO_VECTOR = "x-ada-no-vector";
     private static final String X_ADA_SERIALIZE_OP = "x-ada-serialize-op";
+    private static final String X_ADA_PARAM_NAME = "x-ada-param-name";
 
     protected String packageName = "defaultPackage";
     protected String projectName = "defaultProject";
@@ -678,8 +679,25 @@ abstract public class AbstractAdaCodegen extends DefaultCodegen implements Codeg
         return objs;
     }
 
+    private void updateBodyParamName(CodegenParameter bodyParam) {
+        if (bodyParam.vendorExtensions.containsKey(X_ADA_PARAM_NAME)) {
+            String name = (String) bodyParam.vendorExtensions.get(X_ADA_PARAM_NAME);
+            bodyParam.baseName = name;
+            bodyParam.paramName = name;
+        } else {
+            String name = bodyParam.baseName;
+            if (name.endsWith("_Type")) {
+                bodyParam.baseName = bodyParam.baseName.substring(0, bodyParam.baseName.length() - 5);
+                bodyParam.paramName = bodyParam.paramName.substring(0, bodyParam.paramName.length() - 5);
+            }
+        }
+    }
+
     private void postProcessOperationWithModels(CodegenOperation op, List<ModelMap> allModels) {
 
+        if (op.bodyParam != null) {
+            updateBodyParamName(op.bodyParam);
+        }
         if (op.consumes != null) {
             List<String> mediaList = new ArrayList<>();
             for (Map<String, String> consume : op.consumes) {
@@ -713,6 +731,9 @@ abstract public class AbstractAdaCodegen extends DefaultCodegen implements Codeg
 
         // Set the file parameter type for both allParams and formParams.
         for (CodegenParameter p : op.allParams) {
+            if (p.isBodyParam) {
+                updateBodyParamName(p);
+            }
             if (p.isFormParam && p.isFile) {
                 p.dataType = openApiPackageName + ".File_Part_Type";
             }

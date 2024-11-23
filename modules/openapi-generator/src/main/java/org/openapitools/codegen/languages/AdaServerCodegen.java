@@ -111,9 +111,10 @@ public class AdaServerCodegen extends AbstractAdaCodegen implements CodegenConfi
             projectName = packageName.replaceAll("\\.", "_");
         }
         String configBaseName = modelPackage.toLowerCase(Locale.ROOT);
-        supportingFiles.add(new SupportingFile("gnat-project.mustache", "", toFilename(projectName) + ".gpr"));
+        String gprProjectName = toFilename(projectName);
+        supportingFiles.add(new SupportingFile("gnat-project.mustache", "", gprProjectName + ".gpr"));
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
-        supportingFiles.add(new SupportingFile("config.gpr", "", "config.gpr"));
+        supportingFiles.add(new SupportingFile("config.mustache", "", gprProjectName + "_config.gpr"));
         supportingFiles.add(new SupportingFile("server-properties.mustache", "", configBaseName + ".properties"));
 
         /*

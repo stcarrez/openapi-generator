@@ -1,4 +1,4 @@
-abstract project Config is
+abstract project {{{projectName}}}_Config is
    for Source_Dirs use ();
 
    type Yes_No is ("yes", "no");
@@ -70,9 +70,9 @@ abstract project Config is
       end case;
 
    end linker;
- 
+
    package Ide is
       for VCS_Kind use "git";
    end Ide;
 
-end Config;
+end {{{projectName}}}_Config;

@@ -14,6 +14,8 @@ with {{package}}.Models;
 with {{openApiPackageName}};
 with {{openApiPackageName}}.Credentials.OAuth;
 with Util.Http.Clients.{{httpClientPackageName}};
+with Util.Log.Loggers;
+with Util.Properties;
 with Ada.Text_IO;
 with Ada.Command_Line;
 with Ada.Calendar.Formatting;
@@ -24,9 +26,11 @@ procedure {{package}}.Client is
 
    procedure Usage;
 
-   Server    : constant {{openApiPackageName}}.UString := {{openApiPackageName}}.To_UString ("http://localhost:8080/v2");
-   Arg_Count : constant Natural := Ada.Command_Line.Argument_Count;
-   Arg       : Positive := 1;
+   Server       : constant {{openApiPackageName}}.UString := {{openApiPackageName}}.To_UString ("http://localhost:8080/v2");
+   CONFIG_PATH  : constant String := "{{packageConfig}}.properties";
+   Arg_Count    : constant Natural := Ada.Command_Line.Argument_Count;
+   Arg          : Positive := 1;
+   Props        : Util.Properties.Manager;
 
    procedure Usage is
    begin
@@ -38,6 +42,8 @@ begin
       Usage;
       return;
    end if;
+   Props.Load_Properties (CONFIG_PATH);
+   Util.Log.Loggers.Initialize (Props);
    Util.Http.Clients.{{httpClientPackageName}}.Register;
    declare
       Command : constant String := Ada.Command_Line.Argument (Arg);

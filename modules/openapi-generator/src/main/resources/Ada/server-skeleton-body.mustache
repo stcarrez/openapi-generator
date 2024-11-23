@@ -87,10 +87,10 @@ package body {{package}}.Skeletons is
             return;
          end if;
 {{#bodyParams}}{{#vendorExtensions.x-is-model-type}}
-         {{package}}.Models.Deserialize (Input, "{{baseName}}", {{paramName}});{{/vendorExtensions.x-is-model-type}}{{^vendorExtensions.x-is-model-type}}{{#isFile}}
-         --  TODO: Serialize (Input.Stream, "{{basename}}", {{paramName}});{{/isFile}}{{^isFile}}{{^isLong}}
-         Deserialize (Input, "{{baseName}}", {{paramName}});{{/isLong}}{{#isLong}}
-         Deserialize (Input, "{{baseName}}", {{paramName}});{{/isLong}}{{/isFile}}{{/vendorExtensions.x-is-model-type}}{{/bodyParams}}
+         {{package}}.Models.Deserialize (Input, "", {{paramName}});{{/vendorExtensions.x-is-model-type}}{{^vendorExtensions.x-is-model-type}}{{#isFile}}
+         --  TODO: Serialize (Input.Stream, "", {{paramName}});{{/isFile}}{{^isFile}}{{^isLong}}
+         Deserialize (Input, "", {{paramName}});{{/isLong}}{{#isLong}}
+         Deserialize (Input, "", {{paramName}});{{/isLong}}{{/isFile}}{{/vendorExtensions.x-is-model-type}}{{/bodyParams}}
          {{/hasBodyParam}}
          Impl.{{operationId}}
             ({{#allParams}}{{paramName}}{{^-last}},
@@ -208,10 +208,10 @@ package body {{package}}.Skeletons is
          {{#hasBodyParam}}
          {{openApiPackageName}}.Servers.Read (Req, Media_List_{{vendorExtensions.x-consumes-media-index}}, Input);
          {{#bodyParams}}{{#vendorExtensions.x-is-model-type}}
-         {{package}}.Models.Deserialize (Input, "{{baseName}}", {{paramName}});{{/vendorExtensions.x-is-model-type}}{{^vendorExtensions.x-is-model-type}}{{#isFile}}
-         --  TODO: Serialize (Input.Stream, "{{basename}}", {{paramName}});{{/isFile}}{{^isFile}}{{^isLong}}
-         Deserialize (Input, "{{baseName}}", {{paramName}});{{/isLong}}{{#isLong}}
-         Deserialize (Input, "{{baseName}}", {{paramName}});{{/isLong}}{{/isFile}}{{/vendorExtensions.x-is-model-type}}{{/bodyParams}}
+         {{package}}.Models.Deserialize (Input, "", {{paramName}});{{/vendorExtensions.x-is-model-type}}{{^vendorExtensions.x-is-model-type}}{{#isFile}}
+         --  TODO: Serialize (Input.Stream, "", {{paramName}});{{/isFile}}{{^isFile}}{{^isLong}}
+         Deserialize (Input, "", {{paramName}});{{/isLong}}{{#isLong}}
+         Deserialize (Input, "", {{paramName}});{{/isLong}}{{/isFile}}{{/vendorExtensions.x-is-model-type}}{{/bodyParams}}
          {{/hasBodyParam}}
          Server.{{operationId}}
             ({{#allParams}}{{paramName}}{{^-last}},
