@@ -13,6 +13,8 @@
 
 package org.openapitools.client.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.StringJoiner;
@@ -38,7 +40,7 @@ import org.openapitools.client.ApiClient;
   EnumArrays.JSON_PROPERTY_JUST_SYMBOL,
   EnumArrays.JSON_PROPERTY_ARRAY_ENUM
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.10.0-SNAPSHOT")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.11.0-SNAPSHOT")
 public class EnumArrays {
   /**
    * Gets or Sets justSymbol
@@ -76,6 +78,7 @@ public class EnumArrays {
   }
 
   public static final String JSON_PROPERTY_JUST_SYMBOL = "just_symbol";
+  @javax.annotation.Nullable
   private JustSymbolEnum justSymbol;
 
   /**
@@ -114,12 +117,13 @@ public class EnumArrays {
   }
 
   public static final String JSON_PROPERTY_ARRAY_ENUM = "array_enum";
+  @javax.annotation.Nullable
   private List<ArrayEnumEnum> arrayEnum = new ArrayList<>();
 
   public EnumArrays() { 
   }
 
-  public EnumArrays justSymbol(JustSymbolEnum justSymbol) {
+  public EnumArrays justSymbol(@javax.annotation.Nullable JustSymbolEnum justSymbol) {
     this.justSymbol = justSymbol;
     return this;
   }
@@ -138,12 +142,12 @@ public class EnumArrays {
 
   @JsonProperty(JSON_PROPERTY_JUST_SYMBOL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setJustSymbol(JustSymbolEnum justSymbol) {
+  public void setJustSymbol(@javax.annotation.Nullable JustSymbolEnum justSymbol) {
     this.justSymbol = justSymbol;
   }
 
 
-  public EnumArrays arrayEnum(List<ArrayEnumEnum> arrayEnum) {
+  public EnumArrays arrayEnum(@javax.annotation.Nullable List<ArrayEnumEnum> arrayEnum) {
     this.arrayEnum = arrayEnum;
     return this;
   }
@@ -170,7 +174,7 @@ public class EnumArrays {
 
   @JsonProperty(JSON_PROPERTY_ARRAY_ENUM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setArrayEnum(List<ArrayEnumEnum> arrayEnum) {
+  public void setArrayEnum(@javax.annotation.Nullable List<ArrayEnumEnum> arrayEnum) {
     this.arrayEnum = arrayEnum;
   }
 
@@ -180,20 +184,12 @@ public class EnumArrays {
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    EnumArrays enumArrays = (EnumArrays) o;
-    return Objects.equals(this.justSymbol, enumArrays.justSymbol) &&
-        Objects.equals(this.arrayEnum, enumArrays.arrayEnum);
+    return EqualsBuilder.reflectionEquals(this, o, false, null, true);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(justSymbol, arrayEnum);
+    return HashCodeBuilder.reflectionHashCode(this);
   }
 
   @Override
