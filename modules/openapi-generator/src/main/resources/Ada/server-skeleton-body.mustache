@@ -12,9 +12,11 @@ package body {{package}}.Skeletons is
    {{name}} : aliased constant String := "{{value}}";
 {{/mediaVariables}}
 {{#mediaLists}}
-   Media_List_{{-index}} : aliased constant {{openApiPackageName}}.Mime_List := ({{#this}}
-     {{-index}} => {{name}}{{^-last}},
-     {{/-last}}{{/this}});{{/mediaLists}}
+   Media_List_{{-index}} : aliased constant {{openApiPackageName}}.Mime_List := ({{#this}}{{#-first}}
+     {{/-first}}{{-index}} => {{name}}{{^-last}},
+     {{/-last}}{{/this}});{{^-last}}
+
+{{/-last}}{{/mediaLists}}
 
    package body Skeleton is
 

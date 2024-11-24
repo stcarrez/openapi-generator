@@ -1001,13 +1001,26 @@ abstract public class AbstractAdaCodegen extends DefaultCodegen implements Codeg
                 }
 
                 // Convert optional members to use the Nullable_<T> type.
+                boolean useNullableType;
                 if (!Boolean.TRUE.equals(required) && nullableTypeMapping.containsKey(p.dataType)) {
                     p.dataType = nullableTypeMapping.get(p.dataType);
                     p.vendorExtensions.put("x-is-required", false);
+                    useNullableType = true;
                 } else {
                     p.vendorExtensions.put("x-is-required", true);
+                    useNullableType = false;
                 }
                 p.vendorExtensions.put("x-is-nullable", p.isNullable);
+                if (p.defaultValue != null && !"null".equals(p.defaultValue)) {
+                    String defaultValue = p.defaultValue;
+                    if (p.isString) {
+                        defaultValue = openApiPackageName + ".To_UString (\"" + defaultValue + "\")";
+                    }
+                    if (useNullableType) {
+                        defaultValue = "(Is_Null => False, Value => " + defaultValue + ")";
+                    }
+                    p.vendorExtensions.put("x-default-value", defaultValue);
+                }
             }
             String name = (String) m.vendorExtensions.get(X_ADA_TYPE_NAME);
             if (name == null) {
